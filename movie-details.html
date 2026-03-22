@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="movie-title"></h1>
+        <img id="movie-poster" src="" alt="Movie Poster">
+        <p id="movie-description"></p>
+        <h3>Showtimes</h3>
+        <div id="showtimes"></div>
+        <button id="book-tickets" onclick="redirectToSeatSelection()">Book Tickets</button>
+    </div>
+
+    <script src="js/movies.js"></script>
+    <script>
+        // Fetch movie details from the server
+        const movieId = new URLSearchParams(window.location.search).get('id');
+        fetch(`/api/movies/${movieId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('movie-title').innerText = data.title;
+                document.getElementById('movie-poster').src = data.posterUrl;
+                document.getElementById('movie-description').innerText = data.description;
+                const showtimesDiv = document.getElementById('showtimes');
+                data.showtimes.forEach(showtime => {
+                    const timeButton = document.createElement('button');
+                    timeButton.innerText = showtime;
+                    timeButton.onclick = () => selectShowtime(showtime);
+                    showtimesDiv.appendChild(timeButton);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching movie details:', error);
+            });
+
+        function selectShowtime(showtime) {
+            localStorage.setItem('selectedShowtime', showtime);
+            localStorage.setItem('selectedMovieId', movieId);
+            redirectToSeatSelection();
+        }
+
+        function redirectToSeatSelection() {
+            window.location.href = 'seat-selection.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Selection</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Select Seats</h1>
+        <div id="movie-info">
+            <h2 id="movie-title"></h2>
+            <p id="movie-date-time"></p>
+        </div>
+        <div id="seat-selection">
+            <h3>Select Your Seats</h3>
+            <div id="seat-map">
+                <!-- Interactive seat layout will be generated here -->
+            </div>
+            <div id="selected-seats">
+                <h4>Selected Seats:</h4>
+                <ul id="seat-list"></ul>
+                <p>Total Price: <span id="total-price">$0</span></p>
+            </div>
+            <button id="confirm-booking">Confirm Booking</button>
+        </div>
+    </div>
+    <script src="js/booking.js"></script>
+</body>
+</html>
